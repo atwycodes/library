@@ -25,22 +25,27 @@ Book.prototype.appendToDOM = function appendToDOM() {
   const cardBookPages = document.createElement('div')
   cardBookPages.classList.add('library__book-pages')
 
-  const cardBookRead = document.createElement('div')
+  const cardBookRead = document.createElement('button')
   cardBookRead.classList.add('library__book-read')
+  cardBookRead.addEventListener('click', (event) => this.toggleReadStatus(event) )
 
   const cardBookRemoveBtn = document.createElement('button')
   cardBookRemoveBtn.classList.add('library__book-remove')
-
+  cardBookRemoveBtn.addEventListener('click', (event) => this.removeCardDisplay(event) )
+  
   // add text content to elements
   cardBookTitle.textContent = `"${this.title}"`
   cardBookAuthor.textContent = `by ${this.author}`
   cardBookPages.textContent = `${this.pages} pages`
+ 
   if (this.read === true) {
     cardBookRead.textContent = 'Read ✅'
-    cardBookRead.style.color = '#8fff82'
+    cardBookRead.style.backgroundColor = '#8fff82'
+
   } else if (this.read === false) {
     cardBookRead.textContent = 'Not Read 📕'
-    cardBookRead.style.color = '#ff8282'
+    cardBookRead.style.backgroundColor = '#ff8282'
+
   }
   cardBookRemoveBtn.textContent = 'Remove'
 
@@ -54,30 +59,52 @@ Book.prototype.appendToDOM = function appendToDOM() {
   cardBookContainer.appendChild(cardBookRemoveBtn)  
 }
 
+Book.prototype.removeCardDisplay = function removeCardDisplay(event) {
+  console.log(`remove btn clicked for ${event.target.parentNode.classList} and book title is ${this.title}`)
+  for (let i = 0; i < myLibrary.length; i+=1) {
+    if (myLibrary[i].title === this.title) {
+      myLibrary.splice(i,1);
+    }
+  }
+  clearDisplay()
+  updateDisplay()
+}
+
+Book.prototype.toggleReadStatus = function toggleReadStatus(event) {
+  console.log(`readtoggle btn clicked for ${event.target.parentNode.classList} and book title is ${this.title}`)
+  for (let i = 0; i < myLibrary.length; i+=1) {
+    if (myLibrary[i].title === this.title && this.read === true) {
+      myLibrary[i].read = false
+    } else if (myLibrary[i].title === this.title && this.read === false) {
+      myLibrary[i].read = true
+    }
+  }
+  clearDisplay()
+  updateDisplay()
+}
+
 const myLibrary = [
-  (new Book('Cracking the Coding Interview','Gayle Laakmann McDowell', 687, false))
+  (new Book('Cracking the Coding Interview','Gayle Laakmann McDowell', 687, false)),
+  (new Book('Eloquent JavaScript: A Modern Introduction to Programming','Marijn Haverbeke', 224, false)),
+  (new Book('Beginning Programming For Dummies','Wallace Wang', 408, true)),
 ];
 
 // define dom elements
 
+const formOverall = document.querySelector('.form')
+formOverall.addEventListener('submit', (event) => addBookToLibrary(event)) 
 const formBookTitle = document.querySelector('#form__title-input')
 const formBookAuthor = document.querySelector('#form__author-input')
 const formBookPages = document.querySelector('#form__pages-input')
 const formBookRead = document.querySelector('#form__read-input')
-const formBookAddBtn = document.querySelector('.form__add-btn')
-
 const formToggle = document.querySelector('.overlay-add-btn')
-formToggle.addEventListener('click', () => showOverlay())
-
-const formOverall = document.querySelector('.form')
-formOverall.addEventListener('submit', (event) => addBookToLibrary(event)) 
+formToggle.addEventListener('click', () => showOverlay()) 
 
 const formOverlay = document.querySelector('.form')
 const maskOverlay = document.querySelector('#page-mask')
 maskOverlay.addEventListener('click', () => hideOverlay())
 
 const libraryDisplay = document.querySelector('.library')
-
 
 // define functions
 
@@ -118,10 +145,6 @@ function updateDisplay () {
   for (let i = 0; i < myLibrary.length; i++) {
     myLibrary[i].appendToDOM()
   }
-}
-
-function removeCardDisplay () {
-  
 }
 
 function addBookToLibrary (event) {
