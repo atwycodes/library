@@ -27,11 +27,11 @@ Book.prototype.appendToDOM = function appendToDOM() {
 
   const cardBookRead = document.createElement('button')
   cardBookRead.classList.add('library__book-read')
-  cardBookRead.addEventListener('click', (event) => this.toggleReadStatus(event) )
+  cardBookRead.addEventListener('click', () => this.toggleReadStatus() )
 
   const cardBookRemoveBtn = document.createElement('button')
   cardBookRemoveBtn.classList.add('library__book-remove')
-  cardBookRemoveBtn.addEventListener('click', (event) => this.removeCardDisplay(event) )
+  cardBookRemoveBtn.addEventListener('click', () => this.removeCardDisplay() )
   
   // add text content to elements
   cardBookTitle.textContent = `"${this.title}"`
@@ -59,8 +59,7 @@ Book.prototype.appendToDOM = function appendToDOM() {
   cardBookContainer.appendChild(cardBookRemoveBtn)  
 }
 
-Book.prototype.removeCardDisplay = function removeCardDisplay(event) {
-  console.log(`remove btn clicked for ${event.target.parentNode.classList} and book title is ${this.title}`)
+Book.prototype.removeCardDisplay = function removeCardDisplay() {
   for (let i = 0; i < myLibrary.length; i+=1) {
     if (myLibrary[i].title === this.title) {
       myLibrary.splice(i,1);
@@ -70,8 +69,7 @@ Book.prototype.removeCardDisplay = function removeCardDisplay(event) {
   updateDisplay()
 }
 
-Book.prototype.toggleReadStatus = function toggleReadStatus(event) {
-  console.log(`readtoggle btn clicked for ${event.target.parentNode.classList} and book title is ${this.title}`)
+Book.prototype.toggleReadStatus = function toggleReadStatus() {
   for (let i = 0; i < myLibrary.length; i+=1) {
     if (myLibrary[i].title === this.title && this.read === true) {
       myLibrary[i].read = false

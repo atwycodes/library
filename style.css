@@ -93,19 +93,6 @@ body {
   text-align: center;
 }
 
-
-
-.library__book-title {
-}
-
-.library__book-author {
-
-}
-
-.library__book-pages {
-
-}
-
 .library__book-read,
 .library__book-remove {
   width: 50%;
