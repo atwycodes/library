@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library</title>
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="header">
+    <h1 class="header__title">myLibrary</h1>
+  </div>
+
+  <div class="library">
+  </div>
+
+  <button class="overlay-add-btn">+</button>
+
+  <div id="page-mask"></div>
+
+  <form class="form">
+    <h2 class="form__header">Add a Book!</h2>
+
+    <div class="form__title">
+      <input 
+        type="text" 
+        id= "form__title-input" 
+        class="form__title-input"
+        placeholder="Title"
+        required
+      >
+    </div>
+
+    <div class="form__author">
+      <input 
+        type="text" 
+        id= "form__author-input"
+        class="form__author-input"
+        placeholder="Author"
+        required
+      >
+    </div>
+
+    <div class="form__pages">
+      <input 
+        type="number" 
+        id= "form__pages-input" 
+        class="form__pages-input"
+        placeholder="No. of pages"
+        required
+      >
+    </div>
+
+    <div class="form__read">
+      <label for="" class="form__read-label">Have you read it?</label>
+      <input 
+        type="checkbox" 
+        id= "form__read-input" 
+        class="form__read-input"
+      >
+    </div>
+
+    <button type="submit" class="form__add-btn">ADD</button>
+  </form>   
+</body>
+</html>
